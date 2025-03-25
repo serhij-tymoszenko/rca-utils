@@ -1,7 +1,6 @@
 export function getFile() {
     return document
-        .getElementById('svg-input')
-        .files[0];
+        .getElementById('svg-input').files[0];
 }
 
 export function readFile(file) {
