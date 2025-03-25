@@ -36,7 +36,7 @@ async function convertAndAddPng() {
     const imgElement = container.querySelector('img');
     if (imgElement) {
         const imageEl = document.createElement('image');
-        imageEl.setAttributeNS('http://www.w3.org/1999/xlink','href', imgElement.src);
+        imageEl.setAttribute('href', imgElement.src);
         imageEl.setAttribute('width', `${width}px`);
         imageEl.setAttribute('height', `${height}px`);
         imageEl.setAttribute('x', 0);
