@@ -6,6 +6,9 @@ window.onload = () => {
     document
         .getElementById("convert")
         .addEventListener("click", convert);
+    document
+        .getElementById("convert-and-add-png")
+        .addEventListener("click", convertAndAddPng)
 }
 
 async function convert() {
@@ -19,4 +22,34 @@ async function convert() {
     svgContent = postCssCorrect(svgContent)
 
     saveFile(svgContent, `css-${file.name}`)
+}
+
+async function convertAndAddPng() {
+    const {width, height} = dimensions;
+    container.querySelector('#placeholder-delete')?.remove();
+    let svgElement = container.querySelector('svg');
+    if (!svgElement) {
+        svgElement = document.createElement('svg');
+        svgElement.setAttribute('viewbox', `0 0 ${width} ${height}`);
+        svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    }
+    const imgElement = container.querySelector('img');
+    if (imgElement) {
+        const imageEl = document.createElement('image');
+        imageEl.setAttribute('href', imgElement.src);
+        imageEl.setAttribute('width', `${width}px`);
+        imageEl.setAttribute('height', `${height}px`);
+        imageEl.setAttribute('x', 0);
+        imageEl.setAttribute('y', 0);
+        svgElement.appendChild(imageEl);
+    }
+
+    let lines = svgElement.outerHTML.split("\n")
+    lines = correct(lines);
+    lines = addCss(lines);
+
+    let svgContent = lines.join('\n')
+    svgContent = postCssCorrect(svgContent)
+
+    saveFile(svgContent, `combined-css-${document.getElementById('svg-input').files?.[0]?.name}`);
 }

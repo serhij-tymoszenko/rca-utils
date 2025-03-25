@@ -1,6 +1,6 @@
 export function getFile() {
-    return  document
-        .getElementById('fileInput')
+    return document
+        .getElementById('svg-input')
         .files[0];
 }
 
@@ -24,9 +24,8 @@ export function saveFile(svgContent, fileName) {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = document.getElementById('myInput').value || fileName; // Default to 'converted.svg'
+    a.download = fileName || "magic";
     a.click();
 
     URL.revokeObjectURL(url);
 }
-
